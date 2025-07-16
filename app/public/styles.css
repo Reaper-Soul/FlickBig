@@ -1,0 +1,11 @@
+body{
+  background-color: var(--background-color) !important;
+  color: var(--text-primary);
+  --background-color: #0A0A0C;
+  --secondary-color: #16161A !important;
+  --accent-color: #FFEB00 !important;
+  --highlight-color: #FFF36C !important;
+  --text-primary: #F5F5F5 !important;
+  --text-secondary: #A0A0A0 !important;
+  --text-disabled: #6F6F6F !important;
+}
