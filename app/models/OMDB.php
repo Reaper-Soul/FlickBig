@@ -67,8 +67,10 @@
                             $results[] = $details;
                             $addedIDs[] = $imdbID;
 
+                            $filter_words = ['the', 'a', 'an', 'and', 'of', 'in', 'on', 'at', 'to', 'with', 'for', 'by', 'from', 'up', 'down', 'out', 'off', 'over'];
+
                             foreach ($normalizedWords as $word) {
-                                if (!in_array($word, $addedTitles)) {
+                                if (!in_array($word, $addedTitles) && !in_array($word, $filter_words)) {
                                     $addedTitles[] = $word;
                                 }
                             }
