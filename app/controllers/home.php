@@ -13,7 +13,7 @@ class Home extends Controller {
       echo "\n<script>console.log(" . json_encode($data_upcoming) . ");</script>";
       
       $viral_movies = $omdb->getMovies($data_viral);
-      $upcoming_movies = $omdb->getMovies($data_upcoming);
+      $upcoming_movies = $omdb->getMovies($data_upcoming, true);
       
 	    $this->view('home/index', [
                   'viral_movies' => $viral_movies,

@@ -8,7 +8,7 @@
 
     }
 
-    public function getMovies($data){
+    public function getMovies($data, $check_upcoming = false){
         $results = [];
         $keywords = $data ?? [];
         $addedIDs = [];
@@ -56,6 +56,14 @@
 
                         $details = $this->getMovieDetails($imdbID);
                         if ($details){
+                            if ($check_upcoming && isset($details['Released'])){
+                                $release = DateTime::createFromFormat('d M Y', $details['Released']);
+                                $now = new DateTime();
+                                if ($release === false || $release < $now){
+                                    continue;
+                                }
+                            }
+
                             $results[] = $details;
                             $addedIDs[] = $imdbID;
 
