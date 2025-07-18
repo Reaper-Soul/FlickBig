@@ -20,6 +20,7 @@ class App {
             $this->controller = $url[1];
 
             $_SESSION['controller'] = $this->controller;
+            $_SESSION['current_page'] = $this->controller;
 
             /* This is if we have a special URL in the index.
              * For example, our apply page is public and in the index method

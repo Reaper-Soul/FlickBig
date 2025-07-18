@@ -19,3 +19,5 @@ define('DB_USER',         'MariaMaria_awayglass');
 define('DB_PASS',         $_ENV['DB_PASS']);
 define('DB_DATABASE',     'MariaMaria_awayglass');
 define('DB_PORT',         '3305');
+define('OMDB_API_KEY',    $_ENV['OMDB_API_KEY']);
+define('GEMINI_API_KEY',  $_ENV['GEMINI_API_KEY']);
