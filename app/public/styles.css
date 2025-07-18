@@ -1,11 +1,22 @@
-body{
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --background-color: #0A0A0C;
+  --secondary-color: #16161A;
+  --accent-color: #FFEB00;
+  --accent-color-hover: #dbba00;
+  --highlight-color: #FFF36C;
+  --text-primary: #F5F5F5;
+  --text-secondary: #A0A0A0;
+  --text-disabled: #6F6F6F;
+}
+
+body {
   background-color: var(--background-color) !important;
   color: var(--text-primary);
-  --background-color: #0A0A0C;
-  --secondary-color: #16161A !important;
-  --accent-color: #FFEB00 !important;
-  --highlight-color: #FFF36C !important;
-  --text-primary: #F5F5F5 !important;
-  --text-secondary: #A0A0A0 !important;
-  --text-disabled: #6F6F6F !important;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+  max-height: 100vh;
 }
