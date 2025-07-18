@@ -1,5 +1,6 @@
 <?php
     $viral_movies = $viral_movies ?? [];
+
     $celebrities = [
         [
             'name' => 'James Gunn',
@@ -18,7 +19,20 @@
             'image' => 'https://m.media-amazon.com/images/M/MV5BMjA1MjE2MTQ2MV5BMl5BanBnXkFtZTcwMjE5MDY0Nw@@._V1_.jpg',
         ],
     ];
+
     $upcoming_movies = $upcoming_movies ?? [];
+    if (isset($upcoming_movies)){
+        usort($upcoming_movies, function($a, $b){
+            $dateA = DateTime::createFromFormat('d M Y', $a['Released']);
+            $dateB = DateTime::createFromFormat('d M Y', $b['Released']);
+
+            if ($dateA === false || $dateB === false) {
+                return 0; 
+            }
+
+            return $dateA<=>$dateB;
+        });
+    }
 ?>
 
 <?php require_once 'app/views/templates/header.php' ?>
