@@ -46,7 +46,7 @@ class Gemini{
         $data = [
             "contents" => [[
                 "parts" => [[
-                    "text" => "Note: Remember just list the titles without saying anything else in the response. No formatting, no indexing or anything else. It should be real movies not made up names. Make sure that none of these movies are released as of the year 2025 which means these movies should be of year 2026 or after. Give me a list of 10 upcoming movies which means the ones which are not yet released in the theatres, along with their exact official titles."
+                    "text" => "Note: Remember just list the titles without saying anything else in the response. There should not be any spaces at the start of the movie title. No formatting, no indexing or anything else. It should be real movies not made up names. Make sure that none of these movies are released as of the year 2025 which means these movies should be of year 2026 or after. Give me a list of 10 upcoming movies which means the ones which are not yet released in the theatres, along with their exact official titles."
                 ]]
             ]]
         ];
