@@ -9,8 +9,11 @@ class Home extends Controller {
       
       $data_viral = $ai->generateTrendingMovies();
       $data_upcoming = $ai->generateUpcomingMovies();
-      echo "<script>console.log(" . json_encode($data_viral) . ");</script>";
-      echo "\n<script>console.log(" . json_encode($data_upcoming) . ");</script>";
+
+      while ($data_viral == null || $data_upcoming == null){
+        $data_viral = $ai->generateTrendingMovies();
+        $data_upcoming = $ai->generateUpcomingMovies();
+      }
       
       $viral_movies = $omdb->getMovies($data_viral);
       $upcoming_movies = $omdb->getMovies($data_upcoming, true);
@@ -18,8 +21,30 @@ class Home extends Controller {
 	    $this->view('home/index', [
                   'viral_movies' => $viral_movies,
                   'upcoming_movies' => $upcoming_movies
-      ]);
-	    die;
+        ]);
+        die;
     }
 
-}
+  public function search() {
+      header('Content-Type: application/json; charset=utf-8');
+
+      $response = ['results' => []];
+      $query = null;
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false){
+          $json = json_decode(file_get_contents('php://input'), true);
+
+          if (isset($json['query'])){
+              $query = $json['query'];
+          }
+      } elseif (isset($_GET['q'])) {
+          $query = $_GET['q'];
+      }
+          $omdb = $this->model('OMDB');
+          $search_results = $omdb->getMovies([$query], false, 3);
+          if ($search_results) {
+              $response['results'] = $search_results;
+          }
+          die(json_encode($response));
+      }
+  }
