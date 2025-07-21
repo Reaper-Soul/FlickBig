@@ -46,7 +46,7 @@
                 </div>  
                 <div class="movie-virals d-flex flex-row gap-2 mt-2 justify-content-between">
                       <?php foreach ($viral_movies as $movie): ?>
-                        <?php include 'app/views/templates/movie_card.php'; ?>
+                        <?php include 'app/views/templates/components/movie_card.php'; ?>
                       <?php endforeach; ?>
                 </div>
                 <div class="row-2 d-flex flex-row gap-5 mt-5">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="celebrities d-flex flex-row gap-3 mt-2 justify-content-between align-items-start w-100 px-5">
                         <?php foreach ($celebrities as $celeb): ?>
-                            <?php include 'app/views/templates/celeb_card.php'; ?>
+                            <?php include 'app/views/templates/components/celeb_card.php'; ?>
                         <?php endforeach;?>
                         </div>
                     </div>

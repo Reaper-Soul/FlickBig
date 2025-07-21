@@ -1,4 +1,4 @@
-<?php include 'app/views/templates/alert.php'; ?>
+<?php include 'app/views/templates/components/alert.php'; ?>
 
 <footer class="footer fixed-bottom pt-1" style="background-color: var(--secondary-color) !important; color: var(--text-primary) !important;">    
     <div class="column">

@@ -1,5 +1,5 @@
 <?php require_once 'app/views/templates/header.php'?>
-<?php include 'app/views/templates/alert.php';?>
+<?php include 'app/views/templates/components/alert.php';?>
 <main role="main" class="container container-center">
     <div class="page-header" id="banner">
         <div class="row">
