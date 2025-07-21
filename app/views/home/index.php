@@ -36,13 +36,13 @@
 ?>
 
 <?php require_once 'app/views/templates/header.php' ?>
-<div class="container my-4">
+<div class="container" style="margin-top: 7rem; margin-bottom: 4rem;">
     <div class="page-header" id="banner">
         <div class="row">
             <div class="col-lg-12">
                 <div class="d-flex flex-row align-items-center justify-content-between">
                     <h4 class="fw-bold">Viral Flicks</h4>
-                    <p class="view-all" style="color: var(--accent-color); cursor: pointer;">Explore all</p>
+                    <p class="view-all" style="color: var(--accent-color); cursor: pointer;">Explore</p>
                 </div>  
                 <div class="movie-virals d-flex flex-row gap-2 mt-2 justify-content-between">
                       <?php foreach ($viral_movies as $movie): ?>
@@ -53,7 +53,7 @@
                     <div class="section-1 d-flex flex-column align-items-center">           
                         <div class="d-flex flex-row align-items-center justify-content-between gap-3 w-100">
                             <h4 class="fw-bold">Celebrity Spotlight</h4>
-                            <p class="view-all" style="color: var(--accent-color); cursor: pointer;">See more</p>
+                            <p class="view-all" style="color: var(--accent-color); cursor: pointer;">See All</p>
                         </div>
                         <div class="celebrities d-flex flex-row gap-3 mt-2 justify-content-between align-items-start w-100 px-5">
                         <?php foreach ($celebrities as $celeb): ?>
@@ -100,8 +100,10 @@
     .upcoming{
         flex: 1;
         overflow-y: auto;
+        overflow-x: hidden;
         max-height: 400px;
-        padding-bottom: 8em;
+        padding-bottom: 4em;
     }
 </style>
+
 <?php require_once 'app/views/templates/footer.php' ?>

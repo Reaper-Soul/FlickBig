@@ -1,20 +1,17 @@
-<?php
-$current_page = $_SESSION['current_page'] ?? '';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="app/public/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" href="app/public/pics/logo.svg" type="image/svg+xml">
-    <title>flickBIG - <?= ucwords(htmlspecialchars($current_page ?? 'Home')) ?></title>
+    <title>flickBIG - <?= ucwords(htmlspecialchars($_SESSION['current_page'] ?? 'Home')) ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark px-5" style="background-color: var(--backgriund-color) !important; border-bottom: 0.1em solid var(--text-disabled) !important;">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark px-5" style="background-color: var(--background-color-transparent) !important; border-bottom: 0.1em solid var(--text-disabled) !important; backdrop-filter: blur(8px); transition: backdrop-filter 0.3s ease;">
   <div class="container-fluid">
     <div class="d-flex align-items-center justify-content-center">
       <div class="spotlight"></div>
@@ -26,24 +23,26 @@ $current_page = $_SESSION['current_page'] ?? '';
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0 ms-5 gap-4 align-items-center">
         <li class="nav-item">
-          <a class="nav-link <?= ($current_page == 'home') ? 'active' : '' ?>" aria-current="page" href="/home">Home</a>
+          <a class="nav-link" aria-current="page" href="/home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= ($current_page == 'movies') ? 'active' : '' ?>" aria-current="page" href="/movies">Movies</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <?= ($current_page == 'watchlist') ? 'active' : '' ?>" aria-current="page" href="/watchlist">Watchlist</a>
+          <a class="nav-link" aria-current="page" href="/watchlist">Watchlist</a>
         </li>
       </ul>
 
       <div class="d-flex flex-row align-items-center gap-3">
         <div class="d-flex flex-row align-items-center">
-          <div class="input-wrapper d-flex flex-row align-tems-center">
-          <input type="text" class="form-control bg-transparent" placeholder="Search..." aria-label="Search" style="border: none; outline: none; box-shadow: none; color: var(--text-secondary);">
+          
+          <div class="input-wrapper d-flex flex-row align-tems-center position-relative">
+          <input id="SearchInput" type="text" class="form-control bg-transparent" placeholder="Search..." aria-label="Search" style="border: none; outline: none; box-shadow: none; color: var(--text-secondary);">
           <button class="btn" style="border: none; outline: none; box-shadow: none; cursor: pointer;">
             <i class="search bi bi-search fw-bold" style="color: var(--text-primary);"></i>
           </button>
         </div>
+
+        <ul id="SearchResults" class="list-group position-absolute" style="z-index: 1000; display: none; background-color: var(--secondary-color); backdrop-filter: blur(8px); margin-top: 2.5rem; margin-inline: 0.4rem; width: 15%; text-align: center; padding: 1rem; max-height: 12rem; overflow-y: auto; overflow-x: hidden; align-self: flex-start; border-radius: 0.5rem"> 
+        </ul>
+          
         </div>
         <button class="btn search-btn fw-semibold d-flex flex-row gap-2 align-items-center" style="border: none; outline: none; box-shadow: none; cursor: pointer; color: var(--text-primary);">
           <i class="bi bi-person-circle fs-5"></i>
@@ -53,7 +52,51 @@ $current_page = $_SESSION['current_page'] ?? '';
     </div>
   </div>
 </nav>
+<?php include 'search_card.php'; ?>
 </body>
+</html>
+
+
+
+<script>
+  document.getElementById('SearchInput').addEventListener('input', function(){
+    const query = this.value.trim();
+    const results = document.getElementById('SearchResults');
+    const template = document.getElementById('search-card');
+    
+    if (query.length === 0){
+      results.style.display = 'none !important';
+      results.innerHTML = '';
+      return;
+    }
+      fetch('/home/search',{
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+        body: JSON.stringify({query: query}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        results.innerHTML = '';
+        const movies = data.results || [];
+        if (movies.length === 0){
+         results.style.display = 'none';
+         results.innerHTML = '';
+        } else{
+          movies.forEach(movie =>{
+            const li = template.content.cloneNode(true);
+            li.querySelector('.movie-title').textContent = movie.Title;
+            li.querySelector('.movie-year').textContent = movie.Year;
+            li.querySelector('.movie-rating').textContent = movie.imdbRating;
+            results.appendChild(li);
+            });
+          results.style.display = 'flex';
+        }
+      })
+      .catch(err => console.error(err));
+  });
+</script>
 
 <style>
   .nav-link {
@@ -106,6 +149,10 @@ $current_page = $_SESSION['current_page'] ?? '';
 
   .navbar-brand{
     blur: 1px;
+  }
+
+  .SearchResults{
+    transition: display 0.3s ease;
   }
   
   .spotlight{
