@@ -6,7 +6,7 @@ class Gemini{
 
     private $headers = [
         "Content-Type: application/json",
-        "X-goog-api-key: " .GEMINI_API_KEY,
+        "X-goog-api-key: " .GEMINI_API_KEY_2,
     ];
 
   public function generateTrendingMovies(){

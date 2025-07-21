@@ -3,25 +3,26 @@
   class OMDB{
 
      private $baseUrl = 'https://www.omdbapi.com/';
+     private $apiKey = OMDB_API_KEY_3;
     
     public function __construct() {
 
     }
 
-    public function getMovies($data, $check_upcoming = false){
+    public function getMovies($data, $check_upcoming = false, $_limit = 7){
         $results = [];
         $keywords = $data ?? [];
         $addedIDs = [];
         $addedTitles = [];
 
-        $limit = 7;
+        $limit = $_limit;
 
         foreach ($keywords as $keyword){
             if (count($results) >= $limit){
                 break;
             }
 
-            $resp = file_get_contents($this->baseUrl . "?apikey=" .OMDB_API_KEY . "&s=" . urlencode($keyword));
+            $resp = file_get_contents($this->baseUrl . "?apikey=" . htmlspecialchars($this->apiKey) . "&s=" . urlencode($keyword));
 
             if ($resp !== false){
                 $data = json_decode($resp, true);
@@ -83,12 +84,12 @@
     }
 
     public function getMovieDetails($imdbID){
-      $resp = file_get_contents($this->baseUrl . "?apikey=" .OMDB_API_KEY . "&i=" . urlencode($imdbID));
+      $resp = file_get_contents($this->baseUrl . "?apikey=" . htmlspecialchars($this->apiKey) . "&i=" . urlencode($imdbID));
 
       if ($resp !== false){
         $data =  json_decode($resp, true);
         if (isset($data['Title'])){
-          $poster_url = "https://img.omdbapi.com/?i=". urlencode($imdbID) . "&apikey=" . OMDB_API_KEY;
+          $poster_url = "https://img.omdbapi.com/?i=". urlencode($imdbID) . "&apikey=" . OMDB_API_KEY_2;
 
           $data['Poster'] = $poster_url;
           return $data;
