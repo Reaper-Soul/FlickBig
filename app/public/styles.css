@@ -4,7 +4,9 @@
 
 :root {
   --background-color: #0A0A0C;
+  --background-color-transparent: #0A0A0Cb9; 
   --secondary-color: #16161A;
+  --secondary-color-transparent: #16161Ab9;
   --accent-color: #FFEB00;
   --accent-color-hover: #dbba00;
   --highlight-color: #FFF36C;
@@ -17,6 +19,6 @@ body {
   background-color: var(--background-color) !important;
   color: var(--text-primary);
   font-family: "Inter", sans-serif;
-  overflow: hidden;
+  overflow: auto;
   max-height: 100vh;
 }
