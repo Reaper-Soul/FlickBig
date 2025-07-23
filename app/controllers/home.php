@@ -6,17 +6,13 @@ class Home extends Controller {
       $user = $this->model('User');
       $omdb = $this->model('OMDB');
       $ai = $this->model('Gemini');
+      $movie = $this->model('Movie');  
       
       $data_viral = $ai->generateTrendingMovies();
       $data_upcoming = $ai->generateUpcomingMovies();
-
-      while ($data_viral == null || $data_upcoming == null){
-        $data_viral = $ai->generateTrendingMovies();
-        $data_upcoming = $ai->generateUpcomingMovies();
-      }
       
-      $viral_movies = $omdb->getMovies($data_viral);
-      $upcoming_movies = $omdb->getMovies($data_upcoming, true);
+      $viral_movies = $omdb->getMovies(data: $data_viral, movie_model: $movie);
+      $upcoming_movies = $omdb->getMovies(data: $data_upcoming, check_upcoming: true, movie_model: $movie);
       
 	    $this->view('home/index', [
                   'viral_movies' => $viral_movies,
@@ -41,7 +37,9 @@ class Home extends Controller {
           $query = $_GET['q'];
       }
           $omdb = $this->model('OMDB');
-          $search_results = $omdb->getMovies([$query], false, 3);
+          $movie = $this->model('Movie');  
+
+          $search_results = $omdb->getMovies([$query], false, 3, $movie);
           if ($search_results) {
               $response['results'] = $search_results;
           }

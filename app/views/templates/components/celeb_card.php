@@ -3,7 +3,7 @@
   $name = $celeb['name'];
 ?>
 <div class="celeb-card d-flex flex-column align-items-center" style="cursor: pointer;">
-  <img alt="Celeb" class="celeb-img ratio ratio-1x1 card-img-top mb-0 img-fluid" src="<?= htmlspecialchars($image) ?>" style="height: 6rem; width: 6rem; object-fit: cover; border-radius: 50%;"/>
+  <img loading="lazy" alt="Celeb" class="celeb-img ratio ratio-1x1 card-img-top mb-0 img-fluid" src="<?= htmlspecialchars($image) ?>" style="height: 6rem; width: 6rem; object-fit: cover; border-radius: 50%;"/>
   <div class="card-body mt-0 p-1 text-center">
     <p class="name"><?= htmlspecialchars($name) ?></p>
   </div>

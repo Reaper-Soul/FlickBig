@@ -5,7 +5,7 @@
 ?>
 
 <div class="card rounded border-0 w-100 d-flex flex-row py-3 px-3" style="background-color: var(--secondary-color); cursor: pointer; border-radius: 0.25em !important; max-height: 12rem;">
-<img alt="Movie Poster" class="card-img-top img-fluid" src="<?= htmlspecialchars($poster_url) ?>" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('d-none'); this.nextElementSibling.classList.add('d-flex');" style="height: 6rem; max-width: 3.5rem; object-fit: cover;"/>
+<img loading="lazy" alt="Movie Poster" class="card-img-top img-fluid" src="<?= htmlspecialchars($poster_url) ?>" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('d-none'); this.nextElementSibling.classList.add('d-flex');" style="height: 6rem; max-width: 3.5rem; object-fit: cover;"/>
 <div class="fallback-img d-none align-items-center justify-content-center p-2" style=" height: 6rem;min-width: 3.5rem; max-width: 3.5rem; background-color: #ccc; color: #555; font-size: 0.75rem;">
     N/A
 </div>

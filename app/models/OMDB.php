@@ -3,13 +3,13 @@
   class OMDB{
 
      private $baseUrl = 'https://www.omdbapi.com/';
-     private $apiKey = OMDB_API_KEY_3;
+     private $apiKey = OMDB_API_KEY;
     
     public function __construct() {
 
     }
 
-    public function getMovies($data, $check_upcoming = false, $_limit = 7){
+    public function getMovies($data, $check_upcoming = false, $_limit = 7, $movie_model = null, $gemini_model = null){
         $results = [];
         $keywords = $data ?? [];
         $addedIDs = [];
@@ -55,7 +55,7 @@
                             continue;
                         }
 
-                        $details = $this->getMovieDetails($imdbID);
+                        $details = $this->getMovieDetails($imdbID, $movie_model);
                         if ($details){
                             if ($check_upcoming && isset($details['Released'])){
                                 $release = DateTime::createFromFormat('d M Y', $details['Released']);
@@ -83,15 +83,28 @@
         return $results;
     }
 
-    public function getMovieDetails($imdbID){
+    private function getMovieDetails($imdbID, $movie_model){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
       $resp = file_get_contents($this->baseUrl . "?apikey=" . htmlspecialchars($this->apiKey) . "&i=" . urlencode($imdbID));
 
       if ($resp !== false){
         $data =  json_decode($resp, true);
-        if (isset($data['Title'])){
-          $poster_url = "https://img.omdbapi.com/?i=". urlencode($imdbID) . "&apikey=" . OMDB_API_KEY_2;
 
-          $data['Poster'] = $poster_url;
+        if (isset($data['Title'])){
+
+                $flickScore = $movie_model->getScore($imdbID);
+                $data['flickScore'] = $flickScore;
+
+                if (isset($_SESSION['username'])){
+                    $user_rating = $movie_model->getRating($imdbID, $_SESSION['username']);
+                    if ($user_rating !== null){
+                        $data['viewerRating'] = $user_rating;
+                    }
+                }
+        
           return $data;
         }
       }

@@ -20,7 +20,4 @@ define('DB_PASS',         $_ENV['DB_PASS']);
 define('DB_DATABASE',     'MariaMaria_awayglass');
 define('DB_PORT',         '3305');
 define('OMDB_API_KEY',    $_ENV['OMDB_API_KEY']);
-define('OMDB_API_KEY_2',  $_ENV['OMDB_API_KEY_2']);
-define('OMDB_API_KEY_3',  $_ENV['OMDB_API_KEY_3']);
 define('GEMINI_API_KEY',  $_ENV['GEMINI_API_KEY']);
-define('GEMINI_API_KEY_2',  $_ENV['GEMINI_API_KEY_2']);
