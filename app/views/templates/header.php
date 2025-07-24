@@ -256,6 +256,10 @@
   .input-wrapper:has(input:focus) .search {
     color: var(--accent-color) !important;
   }
+
+  input::placeholder{
+    color: var(--text-secondary) !important;
+  }
   
   input:focus {
     background-color: var(--secondary-color) !important;
