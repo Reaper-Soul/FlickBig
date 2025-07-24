@@ -185,6 +185,24 @@
             reviewEl.textContent = data.review || 'Review not found.';
           });
 
+        if (<?= $_SESSION['auth'] === 1 ?>){
+          fetch('/watchlist/exists',{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              imdbId: button.dataset.imdbid
+            }),
+          }).then(res => res.json())
+             .then(data => {
+              const watchlistButton = movieModal.querySelector(".watchlist-btn");
+               if (data.exists){
+                 watchlistButton.style.display = 'none';
+               }
+             });
+        }
+
         const modal = movieModal;
         modal.querySelector(".movie-title").textContent = button.dataset.title || '';
         const rating = button.dataset.rating;
@@ -237,6 +255,10 @@
         modal.querySelector(".movie-cast").textContent = button.dataset.cast || '';
 
         modal.setAttribute("imdbid", button.dataset.imdbid || '');
+        modal.setAttribute("title", button.dataset.title || '');
+        modal.setAttribute("poster", button.dataset.poster || '');
+        modal.setAttribute("year", button.dataset.year || '');
+        modal.setAttribute("rating", finalRating || '');
       });
     });
 </script>

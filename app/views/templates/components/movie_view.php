@@ -23,7 +23,7 @@
             </div>
 
             <div class="d-flex align-items-center movie-meta text-white">
-              <p class="me-3">2012</p>
+              <p class="movie-year me-3">2012</p>
               <p class="me-3 separator">⬤</p>
               <p class="me-3">A</p>
               <p class="me-3 separator">⬤</p>
@@ -49,10 +49,10 @@
             </div>
             <div class="d-flex mt-4 flex-row gap-3 fs-5">
               <button
-                class="btn btn-highlight"
+                class="btn btn-highlight watchlist-btn"
                 style="width: fit-content"
                 onclick="<?= isset($_SESSION['username']) 
-                    ? "alert('Feature not yet implemented.')" 
+                    ? "addToWatchlist()" 
                     : "window.location.href='/login'" ?>"
               >
                 <i class="bi bi-file-plus-fill me-1"></i>
@@ -161,6 +161,38 @@
       });
     });
   });
+
+  function addToWatchlist(){
+    const movieId = movieModal.getAttribute('imdbid');
+    const movieTitle = movieModal.getAttribute('title');
+    const moviePoster = movieModal.getAttribute('poster');
+    const movieYear = movieModal.getAttribute('year');
+    const movieRating = movieModal.getAttribute('rating');
+    
+    fetch('/watchlist/add',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          imdbId: movieId,
+          title: movieTitle,
+          poster: moviePoster,
+          year: movieYear,
+          rating: movieRating
+        })
+    }).then(response =>{
+      return response.json().then(data => {
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to add to watchlist');
+      }
+      window.location.href = '/watchlist';
+    })}).catch(err =>{
+        console.error(err);
+        alert('There was an error adding the movie to watchlist.');
+        return;
+    });
+  }
 </script>
 
 <style>
