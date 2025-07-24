@@ -94,7 +94,7 @@ class Gemini{
         $data = [
             "contents" => [[
                 "parts" => [[
-                    "text" => "Note: The review should be in a single line and there should not be any additional formatting. Also, make sure that you reply with something like \" I am excited for the movie release. \" if the movie has not released yet. Give me a review for the movie" . htmlspecialchars($movieTitle) . "Make it feel like a real human write it. You are free to use slangs, emojis and anything else that's trendy to express your emotions. Make sure that the review is not more than 50 words. Also, you are free to critize the movie, just don't use any rude or offensive language."
+                    "text" => "Note: The review should be in a single line and there should not be any additional formatting. Also, make sure that you reply with something similar to \" I am excited for the movie release. \", if the movie has not released yet, you can show your excitement however you like. Give me a review for the movie" . htmlspecialchars($movieTitle) . "Make it feel like a real human write it. You are free to use slangs, emojis and anything else that's trendy to express your emotions. Make sure that the review is not more than 50 words. Also, you are free to critize the movie, just don't use any rude or offensive language."
                 ]]
             ]]
         ];
