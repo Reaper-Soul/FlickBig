@@ -184,8 +184,8 @@
           .then(data => {
             reviewEl.textContent = data.review || 'Review not found.';
           });
-
-        if (<?= $_SESSION['auth'] === 1 ?>){
+        const isLoggedIn = <?= isset($_SESSION['auth']) && $_SESSION['auth'] === 1 ? 'true' : 'false' ?>;
+        if (isLoggedIn){
           fetch('/watchlist/exists',{
             method: 'POST',
             headers: {
