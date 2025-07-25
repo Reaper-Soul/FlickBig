@@ -3,7 +3,13 @@
 class Watchlist extends Controller{
 
   public function index(){
-    $movie = $this->model('Movie');
+
+    if (!isset($_SESSION['username'])){
+        $this->view('login/index');
+        die;
+    }
+      
+    $movie = $this->model('Movie');  
     $watchlist = $movie->getWatchlist();
     
     $this->view('watchlist/index', ['watchlist' => $watchlist]); 
