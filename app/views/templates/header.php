@@ -173,6 +173,8 @@
         reviewEl.textContent = 'Loading ...';
         
         const button = event.relatedTarget;
+         const watchlistButton = movieModal.querySelector(".watchlist-btn");
+         watchlistButton.style.display = 'block';
 
         fetch('/movies/getReview',{
           method: 'POST',
@@ -196,7 +198,6 @@
             }),
           }).then(res => res.json())
              .then(data => {
-              const watchlistButton = movieModal.querySelector(".watchlist-btn");
                if (data.exists){
                  watchlistButton.style.display = 'none';
                }
